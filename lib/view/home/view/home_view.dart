@@ -145,72 +145,72 @@ class _HomeViewState extends State<HomeView> {
                     : SizedBox(),
                 const SizedBox(height: 20),
                 Expanded(
-                  child: controller.filteredCompanies.isEmpty
+                  child: Obx(()=>controller.filteredCompanies.isEmpty
                       ? Center(child: Text('No data found'))
                       : ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: controller.filteredCompanies.length,
-                          itemBuilder: (context, index) {
-                            var company = controller.filteredCompanies[index];
-                            return GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  backgroundColor: AppColors.transparentColor,
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20)),
-                                  ),
-                                  builder: (context) => CustomBottomSheet(
-                                    title: company.title,
-                                    image: company.thumbnailUrl,
-                                    controller: controller,
-                                    index: index,
-                                    company: company,
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                margin: EdgeInsets.only(bottom: 16),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: ListTile(
-                                  leading: ClipOval(
-                                      child: company.thumbnailUrl.isNotEmpty
-                                          ? Image.network(
-                                              company.thumbnailUrl,
-                                              height: 50,
-                                            )
-                                          : CircleAvatar(
-                                              radius: 25,
-                                            )),
-                                  title: Text(
-                                    company.title.split(' ').take(2).join(' '),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Text(
-                                    company.title,
-                                    maxLines: 1,
-                                  ),
-                                  trailing: CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor:
-                                        controller.appliedJobs[index] ?? false
-                                            ? AppColors.greenColor
-                                            : AppColors.purple,
-                                    child: Icon(
-                                      Icons.lock,
-                                      color: Colors.white,
-                                      size: 16,
-                                    ),
-                                  ),
-                                ),
+                    padding: EdgeInsets.zero,
+                    itemCount: controller.filteredCompanies.length,
+                    itemBuilder: (context, index) {
+                      var company = controller.filteredCompanies[index];
+                      return GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: AppColors.transparentColor,
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                            ),
+                            builder: (context) => CustomBottomSheet(
+                              title: company.title,
+                              image: company.thumbnailUrl,
+                              controller: controller,
+                              index: index,
+                              company: company,
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: EdgeInsets.only(bottom: 16),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: ListTile(
+                            leading: ClipOval(
+                                child: company.thumbnailUrl.isNotEmpty
+                                    ? Image.network(
+                                  company.thumbnailUrl,
+                                  height: 50,
+                                )
+                                    : CircleAvatar(
+                                  radius: 25,
+                                )),
+                            title: Text(
+                              company.title.split(' ').take(2).join(' '),
+                              style:
+                              TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              company.title,
+                              maxLines: 1,
+                            ),
+                            trailing: CircleAvatar(
+                              radius: 15,
+                              backgroundColor:
+                              controller.appliedJobs[index] ?? false
+                                  ? AppColors.greenColor
+                                  : AppColors.purple,
+                              child: Icon(
+                                Icons.lock,
+                                color: Colors.white,
+                                size: 16,
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         ),
+                      );
+                    },
+                  ),)
                 ),
               ],
             ),
